@@ -1,6 +1,77 @@
-﻿namespace ConsoleApp1.Forms
+﻿using ConsoleApp1.Entities.Employees;
+using ConsoleApp1.Interfaces;
+using ConsoleApp1.Repository;
+using Dapper;
+
+namespace ConsoleApp1.Forms
 {
-    public class FormEmployee
+    public class FormEmployee : BaseRepository, IRepository<Employee>
     {
+        public async Task<int> CreateAsync(Employee obj)
+        {
+            try
+            {
+                await _connection.OpenAsync();
+                string query = "INSERT INTO public.employees(firstname, lastname) VALUES (@FirstName, @LastName);";
+                var result = await _connection.ExecuteAsync(query, obj);
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+        }
+
+        public async Task<int> DeleteAsync(long id)
+        {
+            try
+            {
+                await _connection.OpenAsync();
+                string query = "DELETE FROM public.employees WHERE id = @Id;";
+                var result = await _connection.ExecuteAsync(query, new { Id = id });
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+        }
+
+        public Task<int> GetByIdAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> UpdateAsync(Employee obj)
+        {
+            try
+            {
+                await _connection.OpenAsync();
+                string query = $"UPDATE public.employees SET firstname = @FirstName, lastname = @LastName WHERE id = @Id;";
+                var result = await _connection.ExecuteAsync(query, obj);
+                return result;
+            }
+            catch
+            {
+                return 0;
+            }
+            finally
+            {
+                await _connection.CloseAsync();
+            }
+        }
     }
 }

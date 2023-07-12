@@ -2,11 +2,10 @@
 using ConsoleApp1.Interfaces;
 using ConsoleApp1.Repository;
 using Dapper;
-using System.Data.Common;
 
 namespace ConsoleApp1.MainForms;
 
-public class FromClient : BaseRepository, IRepository<Client>
+public class FormClient : BaseRepository, IRepository<Client>
 {
     public async Task<int> CreateAsync(Client obj)
     {
