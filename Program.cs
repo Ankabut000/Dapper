@@ -11,13 +11,13 @@ public class Program
 {
     static async Task Main()
     {
-        await Run1();
-        await Run2();
-        await Run3();
+        await ClientIsStarted();
+        await StudentIsStarted();
+        await EmployeeIsStarted();
 
     }
 
-    static async Task Run1()
+    static async Task ClientIsStarted()
     {
         var formClient = new FormClient();
 
@@ -48,7 +48,7 @@ public class Program
     }
 
 
-    static async Task Run2()
+    static async Task StudentIsStarted()
     {
         var formStudent = new FormStudent();
 
@@ -78,7 +78,7 @@ public class Program
         Console.WriteLine($"Delete result: {deleteResult}");
     }
 
-    static async Task Run3()
+    static async Task EmployeeIsStarted()
     {
         var formEmployee = new FormEmployee();
 
